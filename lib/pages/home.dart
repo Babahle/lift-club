@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
+import 'package:lifts_app/repository/lifts_repository.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -14,7 +15,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<LiftsViewModel>(builder: (context, fuelPriceModel, child) {
+    return Consumer<LiftsViewModel>(builder: (context, liftsViewModel, child) {
+      liftsViewModel.getAllLifts();
       return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -22,11 +24,18 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const <Widget>[
-              SizedBox(
+            children: <Widget>[
+              const SizedBox(
                 height: 16.0,
               ),
-              Text('I need a lift!')
+              const Text('I need a lift!'),
+              const SizedBox(
+                height: 16.0,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                  },
+                  child: const Text("Press"))
             ],
           ),
         ),
