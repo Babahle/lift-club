@@ -12,28 +12,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<LiftsViewModel>(
-      builder: (context, fuelPriceModel, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
+    return Consumer<LiftsViewModel>(builder: (context, fuelPriceModel, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const <Widget>[
+              SizedBox(
+                height: 16.0,
+              ),
+              Text('I need a lift!')
+            ],
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const <Widget>[
-                SizedBox(
-                  height: 16.0,
-                ),
-                Text('I need a lift!')
-              ],
-            ),
-          ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }

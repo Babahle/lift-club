@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "746133285296",
+    "project_id": "wtc-final-project",
+    "storage_bucket": "wtc-final-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746133285296:android:2019ed4c9a262183164e75",
+        "android_client_info": {
+          "package_name": "za.co.wethinkcode.widgets_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746133285296-bqj1vu9a4q3g7jaeirovn0u1nipvn6ph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_v07DzD3SUJH9CWAj8I9kdKesnsLRdW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746133285296-bqj1vu9a4q3g7jaeirovn0u1nipvn6ph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
