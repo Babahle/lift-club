@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
 import 'package:lifts_app/pages/all_lifts.dart';
 import 'package:lifts_app/pages/booked_lifts.dart';
+import 'package:lifts_app/pages/create_lift.dart';
 import 'package:lifts_app/pages/created_lifts.dart';
 import 'package:lifts_app/services/authentication.dart';
 import 'package:lifts_app/themes/main_theme.dart';
@@ -22,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var screens = [
     const AllLiftsView(),
     const CreatedLiftsView(),
-    const CreatedLiftsView(),
+    const CreateLiftView(),
     const BookedLiftsView()
   ];
 

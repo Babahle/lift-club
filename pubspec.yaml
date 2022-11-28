@@ -41,6 +41,7 @@ dependencies:
   flutterfire_ui: ^0.4.3+20
   google_fonts: ^3.0.1
   xid: ^1.0.12
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

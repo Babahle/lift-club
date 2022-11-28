@@ -27,49 +27,47 @@ class MyColors {
 
 class MainTheme {
   static ThemeData mainTheme = ThemeData(
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: MyColors.background,
-      primarySwatch: MyColors.primarySwatch,
-      // ignore: prefer_const_constructors
-      inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
-
-      ),
-      primaryColor: MyColors.body,
-      textTheme: TextTheme(
-          headlineSmall: GoogleFonts.ptSans(
-              color: MyColors.heading, fontWeight: FontWeight.w800),
-          headlineMedium: GoogleFonts.ptSans(
-              color: MyColors.heading, fontWeight: FontWeight.w800),
-          headlineLarge: GoogleFonts.ptSans(
-              color: MyColors.heading, fontWeight: FontWeight.w800),
-          titleSmall: GoogleFonts.ptSans(color: MyColors.body),
-          titleMedium: GoogleFonts.ptSans(color: MyColors.body),
-          titleLarge: GoogleFonts.ptSans(color: MyColors.body),
-          bodySmall: GoogleFonts.ptSans(color: MyColors.body),
-          bodyMedium: GoogleFonts.ptSans(color: MyColors.body),
-          bodyLarge: GoogleFonts.ptSans(color: MyColors.body)),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: MyColors.background,
+    primarySwatch: MyColors.primarySwatch,
+    // ignore: prefer_const_constructors
+    inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+    primaryColor: MyColors.body,
+    textTheme: TextTheme(
+        headlineSmall: GoogleFonts.ptSans(
+            color: MyColors.heading, fontWeight: FontWeight.w800),
+        headlineMedium: GoogleFonts.ptSans(
+            color: MyColors.heading, fontWeight: FontWeight.w800),
+        headlineLarge: GoogleFonts.ptSans(
+            color: MyColors.heading, fontWeight: FontWeight.w800),
+        titleSmall: GoogleFonts.ptSans(color: MyColors.body),
+        titleMedium: GoogleFonts.ptSans(color: MyColors.body),
+        titleLarge: GoogleFonts.ptSans(color: MyColors.body),
+        bodySmall: GoogleFonts.ptSans(color: MyColors.body),
+        bodyMedium: GoogleFonts.ptSans(color: MyColors.body),
+        bodyLarge: GoogleFonts.ptSans(color: MyColors.body)),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all(MyColors.heading),
+      textStyle: MaterialStateProperty.all<TextStyle>(
+          const TextStyle(color: MyColors.heading)),
+      backgroundColor:
+          MaterialStateProperty.all<Color>(MyColors.widgetsBackground),
+    )),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(MyColors.heading),
         textStyle: MaterialStateProperty.all<TextStyle>(
             const TextStyle(color: MyColors.heading)),
         backgroundColor:
             MaterialStateProperty.all<Color>(MyColors.widgetsBackground),
-      )),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-          style: ButtonStyle(
-        textStyle: MaterialStateProperty.all<TextStyle>(
-            const TextStyle(color: MyColors.heading)),
-        backgroundColor:
-            MaterialStateProperty.all<Color>(MyColors.widgetsBackground),
       ),
-      
-      ),
-      appBarTheme: const AppBarTheme(
+    ),
+    appBarTheme: const AppBarTheme(
         backgroundColor: MyColors.background,
-        foregroundColor: MyColors.heading
-      ),
+        foregroundColor: MyColors.heading),
 
-      iconTheme: const IconThemeData(color: MyColors.heading),
-      );
+    iconTheme: const IconThemeData(color: MyColors.heading),
+  );
 }

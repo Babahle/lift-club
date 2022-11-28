@@ -3,15 +3,18 @@ import 'package:flutter/foundation.dart';
 
 class AuthenticationService extends ChangeNotifier {
   bool loggedIn = false;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  String? getUserId() {
+    return _auth.currentUser!.uid;
+  }
 
   signOutUser() {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    auth.signOut();
+    _auth.signOut();
   }
 
   checkIfLoggedIn() {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    auth.authStateChanges().listen((User? user) {
+    _auth.authStateChanges().listen((User? user) {
       if (user == null) {
         loggedIn = false;
       } else {
