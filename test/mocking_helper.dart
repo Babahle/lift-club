@@ -1,6 +1,9 @@
-class MockingHelper{
+import 'package:xid/xid.dart';
+
+class MockingHelper {
   var normalLift = {
     'departureDateTime': DateTime.now().toIso8601String(),
+    'id': Xid.string(),
     'ownerId': "123",
     'departureStreet': "958 Plum Street",
     'departureTown': "Ebony Park",
@@ -12,6 +15,7 @@ class MockingHelper{
 
   var liftWithNoSeatsAvailable = {
     'departureDateTime': DateTime.now().toIso8601String(),
+    'id': Xid.string(),
     'ownerId': "123",
     'departureStreet': "958 Plum Street",
     'departureTown': "Ebony Park",

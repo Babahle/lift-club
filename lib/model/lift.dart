@@ -1,9 +1,8 @@
 import 'package:lifts_app/model/booking.dart';
-import 'package:xid/xid.dart';
 
 class Lift {
   final DateTime departureDateTime;
-  final Xid id;
+  final String id;
   final String ownerId;
   final String destinationStreet;
   final String destinationTown;
@@ -37,7 +36,7 @@ class Lift {
       : this(
             departureDateTime:
                 DateTime.parse(jsonMap['departureDateTime'] as String),
-            id: Xid.fromString(jsonMap['ownerId'] as String),
+            id: jsonMap["id"] as String,
             ownerId: jsonMap['ownerId'] as String,
             departureStreet: jsonMap['departureStreet'] as String,
             departureTown: jsonMap['departureTown'] as String,
@@ -49,7 +48,7 @@ class Lift {
   Map<String, Object?> toJson() {
     return {
       'departureDateTime': departureDateTime.toIso8601String(),
-      'id': id.toString(),
+      'id': id,
       'ownerId': ownerId,
       'departureStreet': departureStreet,
       'departureTown': departureTown,
@@ -62,6 +61,6 @@ class Lift {
 
   @override
   String toString() {
-    return 'Lift{departureDateTime: $departureDateTime, ownerId: $ownerId, destinationStreet: $destinationStreet, destinationTown: $destinationTown, departureStreet: $departureStreet, departureTown: $departureTown, seatsAvailable: $seatsAvailable, numberOfPassengers: $numberOfPassengers}';
+    return 'Lift{departureDateTime: $departureDateTime, id: $id, ownerId: $ownerId, destinationStreet: $destinationStreet, destinationTown: $destinationTown, departureStreet: $departureStreet, departureTown: $departureTown, seatsAvailable: $seatsAvailable, numberOfPassengers: $numberOfPassengers}';
   }
 }
