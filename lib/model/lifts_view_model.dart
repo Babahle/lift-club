@@ -13,7 +13,9 @@ class LiftsViewModel extends ChangeNotifier {
   Future<List<Lift>> getAllLifts() async {
     List<Lift> newLifts = await _liftsRepository.getAllAvailableLifts();
     for (final lift in newLifts) {
-      lifts.add(lift);
+      if (!lifts.contains(lift)) {
+        lifts.add(lift);
+      }
     }
     notifyListeners();
     return lifts;
