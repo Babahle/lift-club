@@ -1,7 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lifts_app/model/lift.dart';
 import 'package:logger/logger.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:xid/xid.dart';
 
 class LiftsRepository {
   var logger = Logger();
@@ -26,11 +25,9 @@ class LiftsRepository {
     await liftsReference.add(lift);
   }
 
-  //TODO: Create to get a lift based on a ID
-
-  Future<Lift?> getLiftFromId(Xid id) async {
+  Future<Lift?> getLiftFromId(String id) async {
     logger.i("Getting Lift with $id as the id");
-    liftsReference.where("id");
+    liftsReference.where("id", isEqualTo: id).get();
     return null;
   }
 }

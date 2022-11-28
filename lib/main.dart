@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
 import 'package:lifts_app/pages/home.dart';
+import 'package:lifts_app/pages/sign_in.dart';
 import 'package:lifts_app/services/authentication.dart';
 import 'package:lifts_app/themes/main_theme.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Lifts',
         theme: MainTheme.mainTheme,
-        home: const MyHomePage(title: "Lift"));
+        home: Consumer<AuthenticationService>(
+          builder: (context, service, child) {
+            return (service.checkIfLoggedIn()) ? const MyHomePage(title: "Lifts") : SignInView();
+          },
+        ));
   }
 }

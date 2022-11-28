@@ -30,6 +30,11 @@ class MainTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: MyColors.background,
       primarySwatch: MyColors.primarySwatch,
+      // ignore: prefer_const_constructors
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
+
+      ),
       primaryColor: MyColors.body,
       textTheme: TextTheme(
           headlineSmall: GoogleFonts.ptSans(
@@ -57,5 +62,14 @@ class MainTheme {
             const TextStyle(color: MyColors.heading)),
         backgroundColor:
             MaterialStateProperty.all<Color>(MyColors.widgetsBackground),
-      )));
+      ),
+      
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: MyColors.background,
+        foregroundColor: MyColors.heading
+      ),
+
+      iconTheme: const IconThemeData(color: MyColors.heading),
+      );
 }

@@ -1,8 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-class AuthenticationService extends ChangeNotifier{
+class AuthenticationService extends ChangeNotifier {
   bool loggedIn = false;
+
+  signOutUser() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut();
+  }
 
   checkIfLoggedIn() {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -15,6 +20,5 @@ class AuthenticationService extends ChangeNotifier{
       notifyListeners();
     });
     return loggedIn;
-
   }
 }
