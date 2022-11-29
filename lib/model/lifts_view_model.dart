@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lifts_app/model/lift.dart';
 import 'package:lifts_app/repository/lifts_repository.dart';
@@ -10,14 +11,9 @@ class LiftsViewModel extends ChangeNotifier {
     _liftsRepository.addLiftToCollection(lift);
   }
 
-  Future<List<Lift>> getAllLifts() async {
-    List<Lift> newLifts = await _liftsRepository.getAllAvailableLifts();
-    for (final lift in newLifts) {
-      if (!lifts.contains(lift)) {
-        lifts.add(lift);
-      }
-    }
-    notifyListeners();
-    return lifts;
+  Stream<QuerySnapshot> getLiftStream() {
+    return _liftsRepository.getLiftStream();
   }
+
+  
 }

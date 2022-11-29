@@ -102,20 +102,7 @@ class _CreateLiftViewState extends State<CreateLiftView> {
             const SizedBox(
               height: 20,
             ),
-            TextFormField(
-              controller: _numberOfSeats,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                  hintText: "Enter The Number of Seats Available",
-                  label: Text("No. Seats Available"),
-                  prefixIcon: Icon(Icons.numbers)),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please enter a number";
-                }
-                return null;
-              },
-            ),
+            CustomFormFields.buildNumberOfSeatsField(_numberOfSeats),
             const SizedBox(
               height: 20,
             ),
@@ -202,4 +189,6 @@ class _CreateLiftViewState extends State<CreateLiftView> {
           ],
         ));
   }
+
+  
 }

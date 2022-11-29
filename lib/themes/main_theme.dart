@@ -69,5 +69,8 @@ class MainTheme {
         foregroundColor: MyColors.heading),
 
     iconTheme: const IconThemeData(color: MyColors.heading),
+    cardTheme: const CardTheme(
+      color: MyColors.widgetsBackground,
+    )
   );
 }
