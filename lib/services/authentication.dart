@@ -9,6 +9,10 @@ class AuthenticationService extends ChangeNotifier {
     return _auth.currentUser!.uid;
   }
 
+  String? getUserEmail() {
+    return _auth.currentUser!.email;
+  }
+
   signOutUser() {
     _auth.signOut();
   }
@@ -24,4 +28,5 @@ class AuthenticationService extends ChangeNotifier {
     });
     return loggedIn;
   }
+
 }

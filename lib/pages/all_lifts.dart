@@ -26,7 +26,7 @@ class _AllLiftsViewState extends State<AllLiftsView> {
         children: <Widget>[
           Text(
             "Available Lifts",
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
           const SizedBox(
             height: 20,
@@ -55,12 +55,13 @@ class _AllLiftsViewState extends State<AllLiftsView> {
                 itemBuilder: ((context, index) {
                   var lift = lifts[index];
                   String destination =
-                      "${lift!.destinationStreet} ${lift!.destinationTown}";
+                      "${lift!.destinationStreet} ${lift.destinationTown}";
                   String departure =
-                      "${lift!.departureStreet} ${lift!.departureTown}";
+                      "${lift.departureStreet} ${lift.departureTown}";
                   return LiftCard(
                     departure: departure,
                     destination: destination,
+                    liftId: lift.id,
                   );
                 }));
           } else {

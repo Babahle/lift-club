@@ -1,9 +1,11 @@
 import 'package:lifts_app/model/booking.dart';
+import 'package:xid/xid.dart';
 
 class Lift {
   final DateTime departureDateTime;
   final String id;
   final String ownerId;
+  final String ownerEmail;
   final String destinationStreet;
   final String destinationTown;
   final String departureStreet;
@@ -15,7 +17,8 @@ class Lift {
     if (seatsAvailable > 0) {
       numberOfPassengers++;
       seatsAvailable--;
-      return Booking(ownerId: passengerId, liftId: id.toString());
+      return Booking(
+          id: Xid.string(), ownerId: passengerId, liftId: id.toString());
     } else {
       return null;
     }
@@ -25,6 +28,7 @@ class Lift {
       {required this.departureDateTime,
       required this.id,
       required this.ownerId,
+      required this.ownerEmail,
       required this.departureStreet,
       required this.departureTown,
       required this.destinationStreet,
@@ -38,6 +42,7 @@ class Lift {
                 DateTime.parse(jsonMap['departureDateTime'] as String),
             id: jsonMap["id"] as String,
             ownerId: jsonMap['ownerId'] as String,
+            ownerEmail: jsonMap['ownerEmail'] as String,
             departureStreet: jsonMap['departureStreet'] as String,
             departureTown: jsonMap['departureTown'] as String,
             destinationStreet: jsonMap['destinationStreet'] as String,
@@ -50,6 +55,7 @@ class Lift {
       'departureDateTime': departureDateTime.toIso8601String(),
       'id': id,
       'ownerId': ownerId,
+      'ownerEmail': ownerEmail,
       'departureStreet': departureStreet,
       'departureTown': departureTown,
       'destinationStreet': destinationStreet,
@@ -61,6 +67,6 @@ class Lift {
 
   @override
   String toString() {
-    return 'Lift{departureDateTime: $departureDateTime, id: $id, ownerId: $ownerId, destinationStreet: $destinationStreet, destinationTown: $destinationTown, departureStreet: $departureStreet, departureTown: $departureTown, seatsAvailable: $seatsAvailable, numberOfPassengers: $numberOfPassengers}';
+    return 'Lift{departureDateTime: $departureDateTime, id: $id, ownerId: $ownerId, ownerEmail $ownerEmail, destinationStreet: $destinationStreet, destinationTown: $destinationTown, departureStreet: $departureStreet, departureTown: $departureTown, seatsAvailable: $seatsAvailable, numberOfPassengers: $numberOfPassengers}';
   }
 }

@@ -167,6 +167,7 @@ class _CreateLiftViewState extends State<CreateLiftView> {
                             departureDateTime: selectedDate!,
                             id: Xid.string(),
                             ownerId: service.getUserId()!,
+                            ownerEmail: service.getUserEmail()!,
                             departureStreet: _departureStreet.value.text,
                             departureTown: _departureTown.value.text,
                             destinationStreet: _destinationStreet.value.text,
@@ -189,6 +190,4 @@ class _CreateLiftViewState extends State<CreateLiftView> {
           ],
         ));
   }
-
-  
 }

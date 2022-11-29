@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lifts_app/model/lift.dart';
 import 'package:logger/logger.dart';
@@ -26,9 +28,14 @@ class LiftsRepository {
     await liftsReference.add(lift);
   }
 
-  Future<Lift?> getLiftFromId(String id) async {
+  Future<Lift> getLiftFromId(String id) {
     logger.i("Getting Lift with $id as the id");
-    liftsReference.where("id", isEqualTo: id).get();
-    return null;
+    return liftsReference
+        .where("id", isEqualTo: id)
+        .get()
+        .then((snapshot) => snapshot.docs.map((e) => e.data()).toList()[0],
+            onError: (e) {
+      logger.e("Error trying to get lift $e");
+    });
   }
 }

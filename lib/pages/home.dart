@@ -33,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
+            elevation: 0.0,
             actions: [
               _buildSearchButton(),
               _buildSignOutButton(),

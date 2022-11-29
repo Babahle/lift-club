@@ -41,9 +41,9 @@ class MainTheme {
               color: MyColors.heading, fontWeight: FontWeight.w800),
           headlineLarge: GoogleFonts.ptSans(
               color: MyColors.heading, fontWeight: FontWeight.w800),
-          titleSmall: GoogleFonts.ptSans(color: MyColors.body),
-          titleMedium: GoogleFonts.ptSans(color: MyColors.body),
-          titleLarge: GoogleFonts.ptSans(color: MyColors.body),
+          titleSmall: GoogleFonts.ptSans(color: MyColors.heading),
+          titleMedium: GoogleFonts.ptSans(color: MyColors.heading),
+          titleLarge: GoogleFonts.ptSans(color: MyColors.heading),
           bodySmall: GoogleFonts.ptSans(color: MyColors.body),
           bodyMedium: GoogleFonts.ptSans(color: MyColors.body),
           bodyLarge: GoogleFonts.ptSans(color: MyColors.body)),
@@ -65,10 +65,13 @@ class MainTheme {
         ),
       ),
       appBarTheme: const AppBarTheme(
-          backgroundColor: MyColors.background,
+          backgroundColor: MyColors.widgetsBackground,
           foregroundColor: MyColors.heading),
       iconTheme: const IconThemeData(color: MyColors.heading),
-      cardTheme: const CardTheme(
+      cardTheme:  CardTheme(
         color: MyColors.widgetsBackground,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10)
+        )
       ));
 }

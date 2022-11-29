@@ -14,4 +14,8 @@ class LiftsViewModel extends ChangeNotifier {
   Stream<QuerySnapshot> getLiftStream() {
     return _liftsRepository.getLiftStream();
   }
+
+  Future<Lift> getLiftFromId(String id) async {
+    return await _liftsRepository.getLiftFromId(id);
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:lifts_app/model/bookings_view_model.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
 import 'package:lifts_app/pages/home.dart';
 import 'package:lifts_app/pages/sign_in.dart';
@@ -13,7 +14,8 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => LiftsViewModel()),
-      ChangeNotifierProvider(create: (context) => AuthenticationService())
+      ChangeNotifierProvider(create: (context) => AuthenticationService()),
+      ChangeNotifierProvider(create: (context) => BookingViewModel())
     ],
     child: const MyApp(),
   ));
