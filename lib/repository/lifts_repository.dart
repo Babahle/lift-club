@@ -28,6 +28,23 @@ class LiftsRepository {
     await liftsReference.add(lift);
   }
 
+  void updateLift(Lift lift) async {
+    QuerySnapshot<Lift> snapshot =
+        await liftsReference.where("id", isEqualTo: lift.id).get();
+    String liftDocId = snapshot.docs.elementAt(0).id;
+    liftsReference.doc(liftDocId).update({
+      "numberOfPassengers": lift.numberOfPassengers,
+      "seatsAvailable": lift.seatsAvailable
+    });
+  }
+
+  void deleteLift(Lift lift) async {
+    QuerySnapshot<Lift> snapshot =
+        await liftsReference.where("id", isEqualTo: lift.id).get();
+    String liftDocId = snapshot.docs.elementAt(0).id;
+    liftsReference.doc(liftDocId).delete();
+  }
+
   Future<Lift> getLiftFromId(String id) {
     logger.i("Getting Lift with $id as the id");
     return liftsReference

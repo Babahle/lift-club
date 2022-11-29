@@ -5,10 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:lifts_app/model/bookings_view_model.dart';
 import 'package:lifts_app/model/lift.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
-import 'package:lifts_app/services/authentication.dart';
 import 'package:provider/provider.dart';
-
-import '../model/booking.dart';
 
 class LiftDetailsView extends StatelessWidget {
   const LiftDetailsView({super.key, required this.liftId});
@@ -57,28 +54,8 @@ class LiftDetailsView extends StatelessWidget {
           ElevatedButton.icon(
             onPressed: () async {
               bool booked = false;
-              String id =
-                  Provider.of<AuthenticationService>(context, listen: false)
-                      .getUserId()!;
-
-              List<Booking> bookings =
-                  await Provider.of<BookingViewModel>(context, listen: false)
-                      .getBookingsFromUserId(id);
-
-              for (Booking booking in bookings) {
-                if (booking.ownerId == id && liftId == booking.liftId) {
-                  booked = true;
-                }
-              }
-
-              if (booked) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("You've Already Booked This lift")));
-              } else {
-                Booking createdBooking = lift!.createBooking(id)!;
-                Provider.of<BookingViewModel>(context, listen: false)
-                    .addBookingToDatabase(createdBooking);
-              }
+              await Provider.of<BookingViewModel>(context, listen: false)
+                  .handleBooking(context, booked, lift, liftId);
             },
             label: const Text("Book"),
             icon: const Icon(Icons.check),
@@ -87,8 +64,10 @@ class LiftDetailsView extends StatelessWidget {
             width: 10,
           ),
           ElevatedButton.icon(
-            onPressed: () {
-              //TODO: Cancel The Booking;
+            onPressed: () async {
+              bool booked = false;
+              await Provider.of<BookingViewModel>(context, listen: false)
+                  .handleBookingCancellation(context, booked, lift, liftId);
             },
             label: const Text("Cancel"),
             icon: const Icon(Icons.cancel),

@@ -14,6 +14,13 @@ class BookingRepository {
     await bookingsReference.add(lift);
   }
 
+  void deleteBooking(Booking booking) async {
+    QuerySnapshot<Booking> snapshot =
+        await bookingsReference.where("id", isEqualTo: booking.id).get();
+    String bookingDocId = snapshot.docs.elementAt(0).id;
+    bookingsReference.doc(bookingDocId).delete();
+  }
+
   Future<List<Booking>> getBookingsFromUser(String id) {
     logger.i("Getting Bookings With $id");
     return bookingsReference.where("ownerId", isEqualTo: id).get().then(

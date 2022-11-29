@@ -24,6 +24,11 @@ class Lift {
     }
   }
 
+  void cancelBooking(){
+    numberOfPassengers--;
+      seatsAvailable++;
+  }
+
   Lift(
       {required this.departureDateTime,
       required this.id,

@@ -1,6 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:lifts_app/model/booking.dart';
+import 'package:lifts_app/model/lift.dart';
+import 'package:lifts_app/model/lifts_view_model.dart';
 import 'package:lifts_app/repository/bookings_repository.dart';
+import 'package:provider/provider.dart';
+
+import '../services/authentication.dart';
 
 class BookingViewModel extends ChangeNotifier {
   final List<Booking> bookings = [];
@@ -8,6 +14,10 @@ class BookingViewModel extends ChangeNotifier {
 
   addBookingToDatabase(Booking booking) {
     _bookingRepository.addBookingToCollection(booking);
+  }
+
+  deleteBooking(Booking booking) {
+    _bookingRepository.deleteBooking(booking);
   }
 
   Future<Booking> getBookingFromId(String id) async {
@@ -18,5 +28,70 @@ class BookingViewModel extends ChangeNotifier {
     List<Booking> bookings = [];
     bookings.addAll(await _bookingRepository.getBookingsFromUser(id));
     return bookings;
+  }
+
+  Future<void> handleBooking(
+      BuildContext context, bool booked, Lift? lift, String liftId) async {
+    String id =
+        Provider.of<AuthenticationService>(context, listen: false).getUserId()!;
+
+    List<Booking> bookings =
+        await Provider.of<BookingViewModel>(context, listen: false)
+            .getBookingsFromUserId(id);
+
+    for (Booking booking in bookings) {
+      if (booking.ownerId == id && liftId == booking.liftId) {
+        booked = true;
+      }
+    }
+
+    if (booked) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("You've Already Booked This lift")));
+    } else {
+      Booking createdBooking = lift!.createBooking(id)!;
+
+      Provider.of<BookingViewModel>(context, listen: false)
+          .addBookingToDatabase(createdBooking);
+
+      Provider.of<LiftsViewModel>(context, listen: false).updateLift(lift);
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("You've Booked This Lift")));
+    }
+    notifyListeners();
+  }
+
+  Future<void> handleBookingCancellation(
+      BuildContext context, bool booked, Lift? lift, String liftId) async {
+    Booking? removedBooking;
+
+    String id =
+        Provider.of<AuthenticationService>(context, listen: false).getUserId()!;
+
+    List<Booking> bookings =
+        await Provider.of<BookingViewModel>(context, listen: false)
+            .getBookingsFromUserId(id);
+
+    for (Booking booking in bookings) {
+      if (booking.ownerId == id && liftId == booking.liftId) {
+        booked = true;
+        removedBooking = booking;
+      }
+    }
+
+    if (booked) {
+      lift!.cancelBooking();
+
+      deleteBooking(removedBooking!);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("You've Cancelled Your Booking")));
+
+      Provider.of<LiftsViewModel>(context, listen: false).updateLift(lift!);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("You Haven't Booked This Lift")));
+    }
+    notifyListeners();
   }
 }
