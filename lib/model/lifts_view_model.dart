@@ -14,6 +14,4 @@ class LiftsViewModel extends ChangeNotifier {
   Stream<QuerySnapshot> getLiftStream() {
     return _liftsRepository.getLiftStream();
   }
-
-  
 }

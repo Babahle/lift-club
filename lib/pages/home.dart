@@ -31,34 +31,33 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Consumer<LiftsViewModel>(builder: (context, liftsViewModel, child) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: [
-            _buildSearchButton(),
-            _buildSignOutButton(),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: currentIndex,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: MyColors.widgetsBackground,
-            unselectedItemColor: MyColors.body,
-            selectedItemColor: MyColors.heading,
-            selectedFontSize: 14.0,
-            onTap: (index) => setState(() {
-                  currentIndex = index;
-                }),
-            items: const <BottomNavigationBarItem>[
-               BottomNavigationBarItem(
-                  icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.list), label: "Created Lifts"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.add), label: "Create New Lift"),
-              BottomNavigationBarItem(icon: Icon(Icons.check), label: "Booked")
-            ]),
-        body: screens[currentIndex]
-      );
+          appBar: AppBar(
+            title: Text(widget.title),
+            actions: [
+              _buildSearchButton(),
+              _buildSignOutButton(),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+              currentIndex: currentIndex,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: MyColors.widgetsBackground,
+              unselectedItemColor: MyColors.body,
+              selectedItemColor: MyColors.heading,
+              selectedFontSize: 14.0,
+              onTap: (index) => setState(() {
+                    currentIndex = index;
+                  }),
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.list), label: "Created Lifts"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.add), label: "Create New Lift"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.check), label: "Booked")
+              ]),
+          body: screens[currentIndex]);
     });
   }
 

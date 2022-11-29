@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -57,7 +55,7 @@ class _AllLiftsViewState extends State<AllLiftsView> {
                 itemBuilder: ((context, index) {
                   var lift = lifts[index];
                   String destination =
-                      "${lift!.destinationStreet} ${lift.destinationTown}";
+                      "${lift!.destinationStreet} ${lift!.destinationTown}";
                   String departure =
                       "${lift!.departureStreet} ${lift!.departureTown}";
                   return LiftCard(

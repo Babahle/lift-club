@@ -29,7 +29,9 @@ class MyApp extends StatelessWidget {
         theme: MainTheme.mainTheme,
         home: Consumer<AuthenticationService>(
           builder: (context, service, child) {
-            return (service.checkIfLoggedIn()) ? const MyHomePage(title: "Lifts") : SignInView();
+            return (service.checkIfLoggedIn())
+                ? const MyHomePage(title: "Lifts")
+                : SignInView();
           },
         ));
   }

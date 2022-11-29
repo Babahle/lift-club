@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+
 class CustomFormFields {
   static TextFormField buildLocationFormField(
-      {required String? hint, required String? label, required TextEditingController controller}) {
+      {required String? hint,
+      required String? label,
+      required TextEditingController controller}) {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.streetAddress,
@@ -16,21 +19,21 @@ class CustomFormFields {
     );
   }
 
-  static TextFormField buildNumberOfSeatsField(TextEditingController controller) {
+  static TextFormField buildNumberOfSeatsField(
+      TextEditingController controller) {
     return TextFormField(
-            controller: controller,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-                hintText: "Enter The Number of Seats Available",
-                label: Text("No. Seats Available"),
-                prefixIcon: Icon(Icons.numbers)),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Please enter a number";
-              }
-              return null;
-            },
-          );
+      controller: controller,
+      keyboardType: TextInputType.number,
+      decoration: const InputDecoration(
+          hintText: "Enter The Number of Seats Available",
+          label: Text("No. Seats Available"),
+          prefixIcon: Icon(Icons.numbers)),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Please enter a number";
+        }
+        return null;
+      },
+    );
   }
-
 }

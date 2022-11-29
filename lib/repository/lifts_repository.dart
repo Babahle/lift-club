@@ -5,9 +5,8 @@ import 'package:logger/logger.dart';
 class LiftsRepository {
   var logger = Logger();
 
-  Stream<QuerySnapshot> liftsStream = FirebaseFirestore.instance
-      .collection("lifts")
-      .snapshots();
+  Stream<QuerySnapshot> liftsStream =
+      FirebaseFirestore.instance.collection("lifts").snapshots();
 
   var liftsReference = FirebaseFirestore.instance
       .collection("lifts")
@@ -19,13 +18,11 @@ class LiftsRepository {
     return liftsStream;
   }
 
-   Future<List<QuerySnapshot>> getAllAvailableLifts() {
+  Future<List<QuerySnapshot>> getAllAvailableLifts() {
     return liftsStream.toList();
-    }
-  
+  }
 
   Future<void> addLiftToCollection(Lift lift) async {
-
     await liftsReference.add(lift);
   }
 
