@@ -24,10 +24,8 @@ class BookingViewModel extends ChangeNotifier {
     return await _bookingRepository.getBookingFromId(id);
   }
 
-  Future<List<Booking>> getBookingsFromUserId(String id) async {
-    List<Booking> bookings = [];
-    bookings.addAll(await _bookingRepository.getBookingsFromUser(id));
-    return bookings;
+  Future<List<Booking>> getBookingsForUser(String id) {
+    return _bookingRepository.getBookingsFromUser(id);
   }
 
   Future<void> handleBooking(
@@ -37,7 +35,7 @@ class BookingViewModel extends ChangeNotifier {
 
     List<Booking> bookings =
         await Provider.of<BookingViewModel>(context, listen: false)
-            .getBookingsFromUserId(id);
+            .getBookingsForUser(id);
 
     for (Booking booking in bookings) {
       if (booking.ownerId == id && liftId == booking.liftId) {
@@ -45,20 +43,26 @@ class BookingViewModel extends ChangeNotifier {
       }
     }
 
-    if (booked) {
+    if (lift!.ownerId == id) {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("You've Already Booked This lift")));
+          SnackBar(content: Text("You Can't Book A Lift You Created")));
     } else {
-      Booking createdBooking = lift!.createBooking(id)!;
+      if (booked) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("You've Already Booked This lift")));
+      } else {
+        Booking createdBooking = lift!.createBooking(id)!;
 
-      Provider.of<BookingViewModel>(context, listen: false)
-          .addBookingToDatabase(createdBooking);
+        Provider.of<BookingViewModel>(context, listen: false)
+            .addBookingToDatabase(createdBooking);
 
-      Provider.of<LiftsViewModel>(context, listen: false).updateLift(lift);
+        Provider.of<LiftsViewModel>(context, listen: false).updateLift(lift);
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("You've Booked This Lift")));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("You've Booked This Lift")));
+      }
     }
+
     notifyListeners();
   }
 
@@ -71,7 +75,7 @@ class BookingViewModel extends ChangeNotifier {
 
     List<Booking> bookings =
         await Provider.of<BookingViewModel>(context, listen: false)
-            .getBookingsFromUserId(id);
+            .getBookingsForUser(id);
 
     for (Booking booking in bookings) {
       if (booking.ownerId == id && liftId == booking.liftId) {
@@ -80,18 +84,24 @@ class BookingViewModel extends ChangeNotifier {
       }
     }
 
-    if (booked) {
-      lift!.cancelBooking();
-
-      deleteBooking(removedBooking!);
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("You've Cancelled Your Booking")));
-
-      Provider.of<LiftsViewModel>(context, listen: false).updateLift(lift!);
+    if (lift!.ownerId == id) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Get Serious My Dude!")));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("You Haven't Booked This Lift")));
+      if (booked) {
+        lift!.cancelBooking();
+
+        deleteBooking(removedBooking!);
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("You've Cancelled Your Booking")));
+
+        Provider.of<LiftsViewModel>(context, listen: false).updateLift(lift!);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("You Haven't Booked This Lift")));
+      }
     }
+
     notifyListeners();
   }
 }

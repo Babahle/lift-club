@@ -4,7 +4,7 @@ class CustomFormFields {
   static TextFormField buildLocationFormField(
       {required String? hint,
       required String? label,
-      required TextEditingController controller}) {
+      required TextEditingController controller,}) {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.streetAddress,
@@ -20,7 +20,7 @@ class CustomFormFields {
   }
 
   static TextFormField buildNumberOfSeatsField(
-      TextEditingController controller) {
+      TextEditingController controller,) {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.number,

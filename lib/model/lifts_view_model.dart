@@ -17,13 +17,19 @@ class LiftsViewModel extends ChangeNotifier {
     return _liftsRepository.getLiftStream();
   }
 
+  Future<List<Lift>> getLiftsForUser(String id) {
+    return _liftsRepository.getLiftsFromId(id);
+  }
+
   Future<Lift> getLiftFromId(String id) async {
     return await _liftsRepository.getLiftFromId(id);
   }
 
-  updateLift(Lift lift)  {
-     _liftsRepository
-      .updateLift(lift);
+  updateLift(Lift lift) {
+    _liftsRepository.updateLift(lift);
   }
 
+  deleteLift(Lift lift) {
+    _liftsRepository.deleteLift(lift);
+  }
 }

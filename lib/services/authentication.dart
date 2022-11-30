@@ -28,5 +28,4 @@ class AuthenticationService extends ChangeNotifier {
     });
     return loggedIn;
   }
-
 }

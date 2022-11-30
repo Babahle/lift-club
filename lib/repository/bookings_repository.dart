@@ -22,7 +22,6 @@ class BookingRepository {
   }
 
   Future<List<Booking>> getBookingsFromUser(String id) {
-    logger.i("Getting Bookings With $id");
     return bookingsReference.where("ownerId", isEqualTo: id).get().then(
         (snapshot) => snapshot.docs.map((data) {
               return data.data();
@@ -32,7 +31,6 @@ class BookingRepository {
   }
 
   Future<Booking> getBookingFromId(String id) {
-    logger.i("Getting Booking with $id as the id");
     return bookingsReference
         .where("id", isEqualTo: id)
         .get()

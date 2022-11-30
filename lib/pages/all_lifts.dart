@@ -31,7 +31,7 @@ class _AllLiftsViewState extends State<AllLiftsView> {
           const SizedBox(
             height: 20,
           ),
-          Center(child: _buildLiftStreamBuilder(context)),
+          _buildLiftStreamBuilder(context),
         ],
       ),
     ));
@@ -48,22 +48,24 @@ class _AllLiftsViewState extends State<AllLiftsView> {
               return Lift.fromJson(document.data() as Map<String, dynamic>);
             }).toList();
 
-            return ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: lifts.length,
-                itemBuilder: ((context, index) {
-                  var lift = lifts[index];
-                  String destination =
-                      "${lift!.destinationStreet} ${lift.destinationTown}";
-                  String departure =
-                      "${lift.departureStreet} ${lift.departureTown}";
-                  return LiftCard(
-                    departure: departure,
-                    destination: destination,
-                    liftId: lift.id,
-                  );
-                }));
+            return Expanded(
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: lifts.length,
+                  itemBuilder: ((context, index) {
+                    var lift = lifts[index];
+                    String destination =
+                        "${lift!.destinationStreet} ${lift.destinationTown}";
+                    String departure =
+                        "${lift.departureStreet} ${lift.departureTown}";
+                    return LiftCardWithoutButtons(
+                      departure: departure,
+                      destination: destination,
+                      liftId: lift.id,
+                    );
+                  })),
+            );
           } else {
             return const CircularProgressIndicator();
           }

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class LiftDetailsView extends StatelessWidget {
   const LiftDetailsView({super.key, required this.liftId});
+
   final String liftId;
 
   @override
