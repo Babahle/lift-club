@@ -3,12 +3,21 @@ import 'package:flutter/foundation.dart';
 import 'package:lifts_app/model/booking.dart';
 import 'package:lifts_app/model/lift.dart';
 import 'package:lifts_app/repository/lifts_repository.dart';
+import 'package:provider/provider.dart';
 
 class LiftsViewModel extends ChangeNotifier {
   final List<Lift> lifts = [];
   final LiftsRepository _liftsRepository = LiftsRepository();
 
-  addLiftToDatabase(Lift lift) {
+  List<Lift> getLiftsFromState() {
+    return lifts;
+  }
+
+  Future<List<Lift>> getAllLifts() {
+    return _liftsRepository.getAllLifts();
+  }
+
+  void addLiftToDatabase(Lift lift) {
     _liftsRepository.addLiftToCollection(lift);
     notifyListeners();
   }

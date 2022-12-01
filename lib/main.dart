@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lifts_app/model/bookings_view_model.dart';
+import 'package:lifts_app/model/lift.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
 import 'package:lifts_app/pages/home.dart';
 import 'package:lifts_app/pages/sign_in.dart';
@@ -15,7 +16,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => LiftsViewModel()),
       ChangeNotifierProvider(create: (context) => AuthenticationService()),
-      ChangeNotifierProvider(create: (context) => BookingViewModel())
+      ChangeNotifierProvider(create: (context) => BookingViewModel()),
     ],
     child: const MyApp(),
   ));
@@ -26,15 +27,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Lifts',
-        theme: MainTheme.mainTheme,
-        home: Consumer<AuthenticationService>(
-          builder: (context, service, child) {
-            return (service.checkIfLoggedIn())
-                ? const MyHomePage(title: "Lifts")
-                : SignInView();
-          },
-        ));
+    return FutureProvider<List<Lift>>(
+      initialData: [],
+      create: (context) => Provider.of<LiftsViewModel>(context, listen: false).getAllLifts(),
+      child: MaterialApp(
+          title: 'Lifts',
+          theme: MainTheme.mainTheme,
+          home: Consumer<AuthenticationService>(
+            builder: (context, service, child) {
+              return (service.checkIfLoggedIn())
+                  ? const MyHomePage(title: "Lifts")
+                  : SignInView();
+            },
+          )),
+    );
   }
 }

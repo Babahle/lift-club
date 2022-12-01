@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lifts_app/model/lift.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
 import 'package:lifts_app/pages/all_lifts.dart';
 import 'package:lifts_app/pages/booked_lifts.dart';
 import 'package:lifts_app/pages/create_lift.dart';
 import 'package:lifts_app/pages/created_lifts.dart';
+import 'package:lifts_app/pages/searched_lifts.dart';
 import 'package:lifts_app/services/authentication.dart';
 import 'package:lifts_app/themes/main_theme.dart';
 import 'package:provider/provider.dart';
@@ -64,11 +66,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Consumer<AuthenticationService> _buildSearchButton() {
     return Consumer<AuthenticationService>(builder: ((context, service, child) {
-      return IconButton(
-        onPressed: () {
-          ;
-        },
-        icon: const Icon(Icons.search),
+      return Consumer<LiftsViewModel>(
+        builder: ((context, liftsModel, child) {
+          return FutureProvider<List<Lift>>(
+            initialData: [],
+            create: (context) => liftsModel.getAllLifts(),
+            child: IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: SearchedLifts());
+              },
+              icon: const Icon(Icons.search),
+            ),
+          );
+        }),
       );
     }));
   }

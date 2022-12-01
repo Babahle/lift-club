@@ -48,6 +48,7 @@ class _AllLiftsViewState extends State<AllLiftsView> {
               return Lift.fromJson(document.data() as Map<String, dynamic>);
             }).toList();
 
+      
             return Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -70,5 +71,13 @@ class _AllLiftsViewState extends State<AllLiftsView> {
             return const CircularProgressIndicator();
           }
         }));
+  }
+
+  void _filterLifts(String searchValue) {
+    List<Lift> result = [];
+
+    if (searchValue.isEmpty) {
+      result = [];
+    }
   }
 }

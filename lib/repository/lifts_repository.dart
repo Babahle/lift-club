@@ -21,9 +21,6 @@ class LiftsRepository {
     return liftsStream;
   }
 
-  Future<List<QuerySnapshot>> getAllAvailableLifts() {
-    return liftsStream.toList();
-  }
 
   Future<void> addLiftToCollection(Lift lift) async {
     await liftsReference.add(lift);
@@ -32,8 +29,6 @@ class LiftsRepository {
   void updateLift(Lift lift) async {
     QuerySnapshot<Lift> snapshot =
         await liftsReference.where("id", isEqualTo: lift.id).get();
-
-
 
     String liftDocId = snapshot.docs.elementAt(0).id;
 
@@ -55,6 +50,18 @@ class LiftsRepository {
     liftsReference.doc(liftDocId).delete();
   }
 
+  Future<List<Lift>> getAllLifts() {
+    return FirebaseFirestore.instance
+        .collection("lifts")
+        .withConverter<Lift>(
+            fromFirestore: (snapshot, _) => Lift.fromJson(snapshot.data()!),
+            toFirestore: (lift, _) => lift.toJson())
+        .get()
+        .then((value) {
+      return value.docs.map((e) => e.data()).toList();
+    });
+  }
+
   Future<List<Lift>> getLiftsFromId(String id) {
     var stream = FirebaseFirestore.instance
         .collection('lifts')
@@ -66,9 +73,6 @@ class LiftsRepository {
         .then((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
     return stream;
   }
-
-
-
 
   Future<Lift> getLiftFromId(String id) {
     return liftsReference
