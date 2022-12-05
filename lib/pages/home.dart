@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:lifts_app/model/lift.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
 import 'package:lifts_app/pages/all_lifts.dart';
@@ -6,6 +7,7 @@ import 'package:lifts_app/pages/booked_lifts.dart';
 import 'package:lifts_app/pages/create_lift.dart';
 import 'package:lifts_app/pages/created_lifts.dart';
 import 'package:lifts_app/pages/searched_lifts.dart';
+import 'package:lifts_app/pages/sign_in.dart';
 import 'package:lifts_app/services/authentication.dart';
 import 'package:lifts_app/themes/main_theme.dart';
 import 'package:provider/provider.dart';
@@ -68,15 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Consumer<AuthenticationService>(builder: ((context, service, child) {
       return Consumer<LiftsViewModel>(
         builder: ((context, liftsModel, child) {
-          return FutureProvider<List<Lift>>(
-            initialData: [],
-            create: (context) => liftsModel.getAllLifts(),
-            child: IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: SearchedLifts());
-              },
-              icon: const Icon(Icons.search),
-            ),
+          return IconButton(
+            onPressed: () {
+              showSearch(context: context, delegate: SearchedLifts(lifts: liftsModel.getAllLifts()));
+            },
+            icon: const Icon(Icons.search),
           );
         }),
       );
@@ -88,6 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
       return IconButton(
           onPressed: () {
             service.signOutUser();
+             Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => SignInView()),
+                (Route<dynamic> route) => false);
           },
           icon: const Icon(Icons.door_sliding));
     }));

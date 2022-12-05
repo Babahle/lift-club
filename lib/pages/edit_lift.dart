@@ -160,6 +160,8 @@ class _EditLiftViewState extends State<EditLiftView> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "Please enter a date";
+                }else if (selectedDate.isBefore(DateTime.now())) {
+                  return "Date Cannot Be In The Past";
                 }
                 return null;
               },
@@ -194,12 +196,14 @@ class _EditLiftViewState extends State<EditLiftView> {
                 numberOfPassengers: 0,
                 seatsAvailable: int.parse(_numberOfSeats.value.text));
 
-
             liftViewModel.updateLift(newLift);
-            // Navigator.of(context).pushAndRemoveUntil(
-            //     MaterialPageRoute(
-            //         builder: (context) => const MyHomePage(title: "Lifts")),
-            //     (Route<dynamic> route) => false);
+
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text("Lift Edited :)")));
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => const MyHomePage(title: "Lifts")),
+                (Route<dynamic> route) => false);
           }
         },
         child: const Text("Update"));

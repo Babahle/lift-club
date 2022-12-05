@@ -6,11 +6,11 @@ import 'package:lifts_app/repository/lifts_repository.dart';
 import 'package:provider/provider.dart';
 
 class LiftsViewModel extends ChangeNotifier {
-  final List<Lift> lifts = [];
   final LiftsRepository _liftsRepository = LiftsRepository();
 
-  List<Lift> getLiftsFromState() {
-    return lifts;
+  static Stream<List<Lift>> getAllLiftsAsStream() {
+    LiftsRepository staticLiftsRepository = LiftsRepository();
+    return staticLiftsRepository.getAllLifts().asStream();
   }
 
   Future<List<Lift>> getAllLifts() {
@@ -27,7 +27,7 @@ class LiftsViewModel extends ChangeNotifier {
   }
 
   Future<List<Lift>> getLiftsForUser(String id) {
-    return _liftsRepository.getLiftsFromId(id);
+    return _liftsRepository.getLiftsFromOwnerId(id);
   }
 
   Future<Lift> getLiftFromId(String id) async {

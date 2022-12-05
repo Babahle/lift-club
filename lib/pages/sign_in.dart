@@ -15,8 +15,8 @@ class SignInView extends StatelessWidget {
       providerConfigs: const [EmailProviderConfiguration()],
       actions: [
         AuthStateChangeAction<SignedIn>((context, _) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const MyHomePage(title: "Lifts")));
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+              builder: (context) => const MyHomePage(title: "Lifts")), (Route<dynamic> route) => false);
         }),
       ],
     );

@@ -73,11 +73,4 @@ class _AllLiftsViewState extends State<AllLiftsView> {
         }));
   }
 
-  void _filterLifts(String searchValue) {
-    List<Lift> result = [];
-
-    if (searchValue.isEmpty) {
-      result = [];
-    }
-  }
 }

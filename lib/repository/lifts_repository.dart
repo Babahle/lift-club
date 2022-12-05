@@ -21,7 +21,6 @@ class LiftsRepository {
     return liftsStream;
   }
 
-
   Future<void> addLiftToCollection(Lift lift) async {
     await liftsReference.add(lift);
   }
@@ -62,7 +61,7 @@ class LiftsRepository {
     });
   }
 
-  Future<List<Lift>> getLiftsFromId(String id) {
+  Future<List<Lift>> getLiftsFromOwnerId(String id) {
     var stream = FirebaseFirestore.instance
         .collection('lifts')
         .withConverter<Lift>(

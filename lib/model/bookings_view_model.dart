@@ -47,7 +47,10 @@ class BookingViewModel extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("You Can't Book A Lift You Created")));
     } else {
-      if (booked) {
+      if (lift.seatsAvailable <= 0) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("This lift is fully booked")));
+      } else if (booked) {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("You've Already Booked This lift")));
       } else {

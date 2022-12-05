@@ -5,16 +5,10 @@ import 'package:provider/provider.dart';
 import '../model/lift.dart';
 
 class SearchedLifts extends SearchDelegate {
-  List<String> searchTerms = [
-    "Apple",
-    "Banana",
-    "Mango",
-    "Pear",
-    "Watermelons",
-    "Blueberries",
-    "Pineapples",
-    "Strawberries"
-  ];
+  SearchedLifts({required this.lifts});
+
+  final Future<List<Lift>> lifts;
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -40,21 +34,42 @@ class SearchedLifts extends SearchDelegate {
   // third overwrite to show query result
   @override
   Widget buildResults(BuildContext context) {
-    List<Lift> matchQuery = [];
+    
+    return FutureBuilder<List<Lift>>(
+      future: lifts,
+      builder: (context, AsyncSnapshot<List<Lift>> snapshot) {
+        if (snapshot.hasData) {
+          List lifts = snapshot.data!;
 
-    List<Lift> lifts = Provider.of<List<Lift>>(context);
-    for (var lift in lifts) {
-      if (lift.destinationTown.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(lift);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result.destinationTown),
-        );
+          List<Lift> matchQuery = [];
+
+          for (var lift in lifts) {
+            if (lift.destinationTown
+                .toLowerCase()
+                .contains(query.toLowerCase())) {
+              matchQuery.add(lift);
+            }
+          }
+          return ListView.builder(
+            itemCount: matchQuery.length,
+            itemBuilder: (context, index) {
+              var result = matchQuery[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          LiftDetailsView(liftId: result.id)));
+                },
+                child: ListTile(
+                  title: Text(
+                      "${result.destinationStreet} ${result.destinationTown}"),
+                ),
+              );
+            },
+          );
+        } else {
+          return CircularProgressIndicator();
+        }
       },
     );
   }
@@ -63,27 +78,41 @@ class SearchedLifts extends SearchDelegate {
   // querying process at the runtime
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<Lift> matchQuery = [];
+    return FutureBuilder<List<Lift>>(
+      future: lifts,
+      builder: (context, AsyncSnapshot<List<Lift>> snapshot) {
+        if (snapshot.hasData) {
+          List lifts = snapshot.data!;
 
-    List<Lift> lifts = Provider.of<List<Lift>>(context);
-    for (var lift in lifts) {
-      if (lift.destinationTown.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(lift);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => LiftDetailsView(liftId: result.id)));
-          },
-          child: ListTile(
-            title: Text(result.destinationTown),
-          ),
-        );
+          List<Lift> matchQuery = [];
+
+          for (var lift in lifts) {
+            if (lift.destinationTown
+                .toLowerCase()
+                .contains(query.toLowerCase())) {
+              matchQuery.add(lift);
+            }
+          }
+          return ListView.builder(
+            itemCount: matchQuery.length,
+            itemBuilder: (context, index) {
+              var result = matchQuery[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          LiftDetailsView(liftId: result.id)));
+                },
+                child: ListTile(
+                  title: Text(
+                      "${result.destinationStreet} ${result.destinationTown}"),
+                ),
+              );
+            },
+          );
+        } else {
+          return CircularProgressIndicator();
+        }
       },
     );
   }

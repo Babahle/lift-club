@@ -17,6 +17,8 @@ void main() async {
       ChangeNotifierProvider(create: (context) => LiftsViewModel()),
       ChangeNotifierProvider(create: (context) => AuthenticationService()),
       ChangeNotifierProvider(create: (context) => BookingViewModel()),
+      FutureProvider<List<Lift>>(
+        create: (context) =>  Provider.of<LiftsViewModel>(context, listen: false).getAllLifts(), initialData: [])
     ],
     child: const MyApp(),
   ));
@@ -27,19 +29,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<List<Lift>>(
-      initialData: [],
-      create: (context) => Provider.of<LiftsViewModel>(context, listen: false).getAllLifts(),
-      child: MaterialApp(
-          title: 'Lifts',
-          theme: MainTheme.mainTheme,
-          home: Consumer<AuthenticationService>(
-            builder: (context, service, child) {
-              return (service.checkIfLoggedIn())
-                  ? const MyHomePage(title: "Lifts")
-                  : SignInView();
-            },
-          )),
-    );
+    return MaterialApp(
+        title: 'Lifts',
+        theme: MainTheme.mainTheme,
+        home: Consumer<AuthenticationService>(
+          builder: (context, service, child) {
+            return (service.checkIfLoggedIn())
+                ? const MyHomePage(title: "Lifts")
+                : SignInView();
+          },
+        ));
   }
 }

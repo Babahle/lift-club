@@ -20,7 +20,7 @@ class CreateLiftView extends StatefulWidget {
 
 class _CreateLiftViewState extends State<CreateLiftView> {
   final TextEditingController _departureStreet = TextEditingController();
-  
+
   final TextEditingController _departureTown = TextEditingController();
 
   final TextEditingController _destinationStreet = TextEditingController();
@@ -150,6 +150,8 @@ class _CreateLiftViewState extends State<CreateLiftView> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "Please enter a date";
+                } else if (selectedDate!.isBefore(DateTime.now())) {
+                  return "Date Cannot Be In The Past";
                 }
                 return null;
               },
@@ -167,31 +169,30 @@ class _CreateLiftViewState extends State<CreateLiftView> {
         ));
   }
 
-  ElevatedButton _submitAction(AuthenticationService service, LiftsViewModel liftViewModel, BuildContext context) {
+  ElevatedButton _submitAction(AuthenticationService service,
+      LiftsViewModel liftViewModel, BuildContext context) {
     return ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Lift newLift = Lift(
-                          departureDateTime: selectedDate!,
-                          id: Xid.string(),
-                          ownerId: service.getUserId()!,
-                          ownerEmail: service.getUserEmail()!,
-                          departureStreet: _departureStreet.value.text,
-                          departureTown: _departureTown.value.text,
-                          destinationStreet: _destinationStreet.value.text,
-                          destinationTown: _destinationTown.value.text,
-                          numberOfPassengers: 0,
-                          seatsAvailable:
-                              int.parse(_numberOfSeats.value.text));
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            Lift newLift = Lift(
+                departureDateTime: selectedDate!,
+                id: Xid.string(),
+                ownerId: service.getUserId()!,
+                ownerEmail: service.getUserEmail()!,
+                departureStreet: _departureStreet.value.text,
+                departureTown: _departureTown.value.text,
+                destinationStreet: _destinationStreet.value.text,
+                destinationTown: _destinationTown.value.text,
+                numberOfPassengers: 0,
+                seatsAvailable: int.parse(_numberOfSeats.value.text));
 
-                      liftViewModel.addLiftToDatabase(newLift);
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const MyHomePage(title: "Lifts")),
-                          (Route<dynamic> route) => false);
-                    }
-                  },
-                  child: const Text("Create"));
+            liftViewModel.addLiftToDatabase(newLift);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => const MyHomePage(title: "Lifts")),
+                (Route<dynamic> route) => false);
+          }
+        },
+        child: const Text("Create"));
   }
 }
