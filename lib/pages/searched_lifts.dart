@@ -34,7 +34,6 @@ class SearchedLifts extends SearchDelegate {
   // third overwrite to show query result
   @override
   Widget buildResults(BuildContext context) {
-    
     return FutureBuilder<List<Lift>>(
       future: lifts,
       builder: (context, AsyncSnapshot<List<Lift>> snapshot) {
@@ -50,6 +49,7 @@ class SearchedLifts extends SearchDelegate {
               matchQuery.add(lift);
             }
           }
+
           return ListView.builder(
             itemCount: matchQuery.length,
             itemBuilder: (context, index) {

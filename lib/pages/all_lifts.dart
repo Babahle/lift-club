@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -48,7 +46,6 @@ class _AllLiftsViewState extends State<AllLiftsView> {
               return Lift.fromJson(document.data() as Map<String, dynamic>);
             }).toList();
 
-      
             return Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -72,5 +69,4 @@ class _AllLiftsViewState extends State<AllLiftsView> {
           }
         }));
   }
-
 }
