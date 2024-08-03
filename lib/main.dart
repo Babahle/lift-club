@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lifts_app/model/bookings_view_model.dart';
 import 'package:lifts_app/model/lift.dart';
@@ -12,6 +13,10 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  FirebaseUIAuth.configureProviders([
+    EmailAuthProvider()
+  ]);
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => LiftsViewModel()),

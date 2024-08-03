@@ -56,7 +56,7 @@ class _CreateLiftViewState extends State<CreateLiftView> {
               ),
               Text(
                 "Create A New Lift",
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
                 height: 30.0,

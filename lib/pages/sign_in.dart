@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:lifts_app/pages/home.dart';
 
 class SignInView extends StatelessWidget {
@@ -12,12 +11,15 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SignInScreen(
-      providerConfigs: const [EmailProviderConfiguration()],
       actions: [
-        AuthStateChangeAction<SignedIn>((context, _) {
-          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-              builder: (context) => const MyHomePage(title: "Lifts")), (Route<dynamic> route) => false);
-        }),
+        AuthStateChangeAction<SignedIn>((context, state) {
+          if (state.user!.emailVerified) {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => MyHomePage(title: "Lifts")),
+                (Route<dynamic> route) => false);
+          }
+        })
       ],
     );
   }

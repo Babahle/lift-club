@@ -29,6 +29,13 @@
             {
               "client_id": "746133285296-bqj1vu9a4q3g7jaeirovn0u1nipvn6ph.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "746133285296-4o7nt3i91i6jhpgcb704cg4t4s1g4vp8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "za.co.wethinkcode.widgetsApp"
+              }
             }
           ]
         }

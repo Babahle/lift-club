@@ -79,4 +79,5 @@ class DefaultFirebaseOptions {
     iosClientId: '746133285296-4o7nt3i91i6jhpgcb704cg4t4s1g4vp8.apps.googleusercontent.com',
     iosBundleId: 'za.co.wethinkcode.widgetsApp',
   );
+
 }

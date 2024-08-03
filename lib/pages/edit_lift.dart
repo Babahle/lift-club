@@ -66,7 +66,7 @@ class _EditLiftViewState extends State<EditLiftView> {
               ),
               Text(
                 "Edit Your Lift",
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
                 height: 30.0,
@@ -138,17 +138,17 @@ class _EditLiftViewState extends State<EditLiftView> {
                   });
                 });
 
-                if (selectedDate != null && time != null) {
+                if (time != null) {
                   setState(() {
                     DateTime submittedDate = DateTime(
-                        selectedDate!.year,
-                        selectedDate!.month,
-                        selectedDate!.day,
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
                         time!.hour,
                         time!.minute);
                     selectedDate = submittedDate;
                     _dateController.text =
-                        "${DateFormat.yMMMMEEEEd().format(selectedDate!)}, ${DateFormat.Hm().format(selectedDate!)}";
+                        "${DateFormat.yMMMMEEEEd().format(selectedDate)}, ${DateFormat.Hm().format(selectedDate)}";
                   });
                 }
               }),
@@ -185,7 +185,7 @@ class _EditLiftViewState extends State<EditLiftView> {
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             Lift newLift = Lift(
-                departureDateTime: selectedDate!,
+                departureDateTime: selectedDate,
                 id: widget.lift.id,
                 ownerId: service.getUserId()!,
                 ownerEmail: service.getUserEmail()!,

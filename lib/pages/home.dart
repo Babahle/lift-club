@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
-import 'package:lifts_app/model/lift.dart';
 import 'package:lifts_app/model/lifts_view_model.dart';
 import 'package:lifts_app/pages/all_lifts.dart';
 import 'package:lifts_app/pages/booked_lifts.dart';
